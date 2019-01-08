@@ -8,13 +8,22 @@ services:
     - '84:80'
     - '443:443'
     links:
-      - 'php:php'
+    - 'php:php'
+    volumes:
+    #      - "./src:/usr/local/apache2/htdocs"
+    #      - "./inside:/usr/local/apache2/htdocs"
+    - "./ski:/usr/local/apache2/htdocs"
+    - "./containers/apache/config:/usr/local/apache2/conf/extra"
   php:
     container_name: iim_php
     hostname: iim_php
     build: ./containers/php
     links:
-       - 'mysql:mysql'
+    - 'mysql:mysql'
+    volumes:
+    #      - "./src:/var/www/html"
+    #      - "./inside:/var/www/html"
+    - "./ski:/var/www/html"
   mysql:
     container_name: iim_mysql
     hostname: iim_mysql
@@ -23,3 +32,4 @@ services:
     - "3308:3306"
     environment:
     - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=skis
