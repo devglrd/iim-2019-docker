@@ -1,0 +1,25 @@
+version: "3.5"
+services:
+  apache:
+    container_name: iim_apache
+    hostname: iim_apache
+    build: ./containers/apache
+    ports:
+    - '84:80'
+    - '443:443'
+    links:
+      - 'php:php'
+  php:
+    container_name: iim_php
+    hostname: iim_php
+    build: ./containers/php
+    links:
+       - 'mysql:mysql'
+  mysql:
+    container_name: iim_mysql
+    hostname: iim_mysql
+    build: ./containers/mysql
+    ports:
+    - "3308:3306"
+    environment:
+    - MYSQL_ROOT_PASSWORD=root
